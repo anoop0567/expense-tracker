@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@sentry/cli": "^2.7.0",
+    "@sentry/react": "^7.15.0",
+    "@sentry/tracing": "^7.15.0",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",
     "@testing-library/user-event": "^13.5.0",
@@ -15,7 +18,12 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "sentry-login": "sentry-cli login",
+    "sentry": "sentry-cli releases -o my-company-uu -p my-app files 0.1.2 upload-sourcemaps build/static/js —dist prod —url-prefix '~/build/static/js' --validate && npm run sentry-finalize",
+    "sentry-finalize": "sentry-cli releases --org my-company-uu --project my-app finalize 0.1.2 && npm run sentry-deploys",
+    "sentry-deploys": "sentry-cli releases -o my-company-uu -p my-app deploys 0.1.2 new -e prod",
+    "webpack-build": "webpack --mode=production"
   },
   "eslintConfig": {
     "extends": [
@@ -34,5 +42,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.9.2"
   }
 }
